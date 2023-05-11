@@ -22,22 +22,83 @@
                       <div id="emailHelp" class="form-text"></div>
                     </div>
                     <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                      <input pattern = ^\d{3}\.\d{3}\.\d{4}$|^(?:\s*)\d{3}-\d{3}-\d{4}(?:\s*)$ required type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text"></div>
+                    </div>
+                    <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                        <input pattern='^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$' required type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                         <div id="emailHelp" class="form-text"></div>
                       </div>
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="exampleInputPassword1">
+                      <input onkeyup="trigger()" type="text" class="form-control" id="exampleInputPassword1">
                     </div>
+                    <div class="indicator">
+                      <span class="weak"></span>
+                      <span class="medium"></span>
+                      <span class="strong"></span>
+                    </div>
+                    <div class="text"></div><br><br>
                     
-                    </div>
+      
                     <button type="submit" class="btn btn-primary">Register</button>
                   </form>
             </section>
         
         </section>    
-    </section>    
+    </section>
+    <script>
+      const indicator = document.querySelector(".indicator");
+      const weak = document.querySelector(".weak");
+      const medium = document.querySelector(".medium");
+      const strong = document.querySelector(".strong");
+      const text = document.querySelector(".text");
+      let regExpWeak = /[a-z]/;
+      let regExpMedium = /\d+/;
+      let regExpStrong = /.[!,@,#,$,%,^,&,*,?,_,~,-,(,)]/;
+      function trigger(){
+        const input = document.getElementById("exampleInputPassword1");
+        if(input.value != " "){
+          indicator.style.display = "block";
+          indicator.style.display = "flex";
+          
+          if((input.value.length >= 6 && input.value.length <=10)&& (input.value.match(regExpWeak) && input.value.match(regExpMedium))){ 
+            no = 2;
+          }
+          else if (input.value.length >= 6 && (input.value.match(regExpWeak) && input.value.match(regExpMedium) && input.value.match(regExpStrong))){
+            no = 3;
+          }
+          else{
+            no = 1;
+          }
+          if(no == 1){
+            weak.classList.add("active");
+            text.style.display = "block";
+            text.textContent = "your password is too weak";
+            text.classList.add("weak");
+          }
+        
+        else if(no == 2){
+          medium.classList.add("active");
+            text.style.display = "block";
+            text.textContent = "your password is medium";
+            text.classList.add("medium");
+        }
+        else {
+          strong.classList.add("active");
+            text.style.display = "block";
+            text.textContent = "your password is strong";
+            text.classList.add("strong");
+        }
+      }
+      }
+
+ 
+
+      
+    </script>
             
 
             
